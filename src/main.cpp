@@ -20,7 +20,7 @@ int main(int argc, char **argv){ _
             break;
         }
         case 2:{
-            ofstream gen_output_file(io.getGenOuputFileName(argc, argv));
+            ofstream gen_output_file(io.getGenOutputFileName(argc, argv));
 
             if(not gen_output_file.is_open()){
                 cerr << "Erro ao abrir o arquivo de saida do teste de " <<
@@ -28,7 +28,7 @@ int main(int argc, char **argv){ _
                 return 1;
             }
 
-            solve.generationsTest(input_file, gen_output_file);
+            solve.generationsTest(gen_output_file);
             break;
         }
         case 3:{
@@ -39,7 +39,7 @@ int main(int argc, char **argv){ _
                 return 1;
             }
 
-            solve.factorialTest(input_file, fac_output_file);
+            solve.factorialTest(fac_output_file);
             break;
         }
     };
