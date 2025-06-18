@@ -11,12 +11,12 @@ using namespace std;
 class Solve{
     private:
         void solveFactorialTest(const int npop, const int ngen, 
-                                const int ndimensions, const float c1,
-                                const float c2, const float w,
+                                const int ndimensions, const double c1,
+                                const double c2, const double w,
                                 ofstream &output_file);
         void solveGenerationsTest(const int npop, const int ngen, 
-                                  const int ndimensions, const float c1,
-                                  const float c2, const float w,
+                                  const int ndimensions, const double c1,
+                                  const double c2, const double w,
                                   ofstream &output_file);
     public:
         void solve();

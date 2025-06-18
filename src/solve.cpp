@@ -7,14 +7,15 @@ void Solve::solve(){
     const int ngen = 100;
     const int ndimensions = 2;
 
-    const float c1 = 3.5;
-    const float c2 = 0.5;
-    const float w = 0.7;
+    const double c1 = 1.5;
+    const double c2 = 1.5;
+    const double w = 0.9;
 
     Pso *pso = new Pso(npop, ngen, ndimensions, c1, c2, w);
 
     pso->createInitialPopulation();
     for(int generation = 0; generation < pso->getNgen(); ++generation){
+        pso->current_generation = generation; 
         pso->updateParticles();
     }
     pso->printBestPos();
@@ -26,9 +27,9 @@ void Solve::factorialTest(ofstream &output_file){
     const int ngen = 200; 
     array<int, 3> ndimensions = {2, 3, 4};
 
-    array<float, 4> c1 = {1.0, 1.4, 1.8, 2.0};
-    array<float, 4> c2 = {1.0, 1.4, 1.8, 2.0};
-    array<float, 3> w = {0.5, 0.7, 0.9};
+    array<double, 4> c1 = {1.0, 1.4, 1.8, 2.0};
+    array<double, 4> c2 = {1.0, 1.4, 1.8, 2.0};
+    array<double, 3> w = {0.5, 0.7, 0.9};
 
     BuildCSV *csv_builder = new BuildCSV();
     csv_builder->printFacIdfCSV(output_file);
@@ -54,9 +55,9 @@ void Solve::generationsTest(ofstream &output_file){
     const int ngen = 100;
     const int ndimensions = 2;
 
-    const float c1 = 0.5;
-    const float c2 = 3.5;
-    const float w = 0.7;
+    const double c1 = 0.5;
+    const double c2 = 3.5;
+    const double w = 0.7;
 
     solveGenerationsTest(npop, ngen, ndimensions, c1, c2, w, output_file);
 
@@ -64,13 +65,14 @@ void Solve::generationsTest(ofstream &output_file){
 }
 
 void Solve::solveFactorialTest(const int npop, const int ngen, 
-                               const int ndimensions, const float c1, 
-                               const float c2, const float w, 
+                               const int ndimensions, const double c1, 
+                               const double c2, const double w, 
                                ofstream &output_file){
     Pso *pso = new Pso(npop, ngen, ndimensions, c1, c2, w);
 
     pso->createInitialPopulation();
     for(int generation = 0; generation < pso->getNgen(); ++generation){
+        pso->current_generation = generation;
         pso->updateParticles();
     }
 
@@ -82,8 +84,8 @@ void Solve::solveFactorialTest(const int npop, const int ngen,
 }
 
 void Solve::solveGenerationsTest(const int npop, const int ngen, 
-                                 const int ndimensions, const float c1, 
-                                 const float c2, const float w, 
+                                 const int ndimensions, const double c1, 
+                                 const double c2, const double w, 
                                  ofstream &output_file){
     Pso *pso = new Pso(npop, ngen, ndimensions, c1, c2, w);
 
@@ -94,6 +96,8 @@ void Solve::solveGenerationsTest(const int npop, const int ngen,
 
     pso->createInitialPopulation();
     for(int generation = 0; generation < pso->getNgen(); ++generation){
+        pso->current_generation = generation;
+
         output_file << generation << ',';
         pso->updateParticles();
 

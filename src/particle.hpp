@@ -7,25 +7,25 @@ using namespace std;
 
 class Particle{
     private:
-        vector<float> pos;
-        vector<float> best_pos;
-        vector<float> velocity;
-        float fitness;
-        float best_fitness;
+        vector<double> pos;
+        vector<double> best_pos;
+        vector<double> velocity;
+        double fitness;
+        double best_fitness;
     public:
-        vector<float> getVelocity(void) const;
-        void setVelocity(const vector<float> &new_velocity);
+        const vector<double>& getVelocity(void) const;
+        void setVelocity(const vector<double> &new_velocity);
 
-        vector<float> getPos(void) const;
-        void setPos(const vector<float> &new_pos);
+        const vector<double>& getPos(void) const;
+        void setPos(const vector<double> &new_pos);
 
-        vector<float> getBestPos(void) const;
-        void setBestPos(const vector<float> &new_best_pos);
+        const vector<double>& getBestPos(void) const;
+        void setBestPos(const vector<double> &new_best_pos);
 
-        float getFitness(void) const;
-        void updateFitness(const float new_fitness);
+        const double getFitness(void) const;
+        void updateFitness(const double new_fitness);
 
-        float getBestFitness(void) const;
+        const double getBestFitness(void) const;
 
         Particle(const int ndimensions);
         Particle(void);

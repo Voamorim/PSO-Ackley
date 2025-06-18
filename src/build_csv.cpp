@@ -15,6 +15,7 @@ void BuildCSV::printFacIdfCSV(ofstream &fac_file){
     fac_file << "Fator Social,";
     fac_file << "Fator de Diversificacao,";
     fac_file << "Melhor Aptidao,";
+    fac_file << "Geracao Encontrada,";
     fac_file << "Aptidao Media" << '\n';
 }
 
@@ -28,5 +29,6 @@ void BuildCSV::printFacResultsCSV(const Pso *pso, ofstream &fac_file){
     fac_file << pso->getC2() << ',';
     fac_file << pso->getW() << ',';
     fac_file << pso->getGbestFitness() << ',';
+    fac_file << pso->found_min << ',';
     fac_file << pso->getAverageFitness() << '\n';
 }
