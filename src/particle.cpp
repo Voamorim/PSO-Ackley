@@ -1,37 +1,38 @@
 #include "particle.hpp"
 
-const vector<double>& Particle::getVelocity(void) const{
+const vector<long double>& Particle::getVelocity(void) const{
     return velocity;
 }
 
-void Particle::setVelocity(const vector<double>& new_velocity){
+void Particle::setVelocity(const vector<long double>& new_velocity){
     velocity = new_velocity;
-    //copy(new_velocity.begin(), new_velocity.end(), velocity.begin());
 }
 
-const vector<double>& Particle::getPos(void) const {
+const vector<long double>& Particle::getPos(void) const {
     return pos;
 }
 
-void Particle::setPos(const vector<double> &new_pos){
+void Particle::setPos(const vector<long double> &new_pos){
     pos = new_pos;
-    //copy(new_pos.begin(), new_pos.end(), pos.begin());
 }
 
-const vector<double>& Particle::getBestPos(void) const{
+const vector<long double>& Particle::getBestPos(void) const{
     return best_pos;
 }
 
-void Particle::setBestPos(const vector<double> &new_best_pos){
-    //copy(new_best_pos.begin(), new_best_pos.end(), best_pos.begin());
+void Particle::setBestPos(const vector<long double> &new_best_pos){
     best_pos = new_best_pos;
 }
 
-const double Particle::getFitness(void) const{
+const long double Particle::getFitness(void) const{
     return fitness;
 }
 
-void Particle::updateFitness(const double new_fitness){
+const long double Particle::getBestFitness(void) const{
+    return best_fitness;
+}
+
+void Particle::updateFitness(const long double new_fitness){
     fitness = new_fitness;
 
     if(new_fitness < best_fitness){

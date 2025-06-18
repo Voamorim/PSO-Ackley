@@ -13,20 +13,20 @@ class Pso{
         int ngen; // Número máximo de iterações
         int ndimensions; // Número de dimensões
 
-        double c1; // Taxa de aprendizado cognitiva
-        double c2; // Taxa de aprendizado social
-        double w; // Ponderação de inércia (fator de diversificação)
+        long double c1; // Taxa de aprendizado cognitiva
+        long double c2; // Taxa de aprendizado social
+        long double w; // Ponderação de inércia (fator de diversificação)
 
         Particle *G_best;
 
-        const double MAX_X = 2.0;
-        const double MIN_X = -MAX_X;
+        const long double MAX_X = 2.0;
+        const long double MIN_X = -MAX_X;
 
-        const double MAX_VELOCITY = MAX_X;
-        const double MIN_VELOCITY = MIN_X;
+        const long double MAX_VELOCITY = MAX_X;
+        const long double MIN_VELOCITY = MIN_X;
 
         // Função objetivo
-        double ackley(const vector<double> &x, const int n);
+        long double ackley(const vector<long double> &x, const int n);
     public: 
         // Vetor para armazenar as particulas do enxame
         vector<Particle*> particles;
@@ -41,16 +41,16 @@ class Pso{
         int getNgen(void) const;
         int getNpop(void) const;
         int getNdimensions(void) const;
-        double getC1(void) const;
-        double getC2(void) const;
-        double getW(void) const;
-        double getGbestFitness(void) const;
-        double getAverageFitness(void) const;
+        long double getC1(void) const;
+        long double getC2(void) const;
+        long double getW(void) const;
+        long double getGbestFitness(void) const;
+        long double getAverageFitness(void) const;
 
         void printBestPos(void) const;
 
         Pso(const int _npop, const int _ngen, const int _ndimensions, 
-            const double _c1, const double _c2, const double _w);
+            const long double _c1, const long double _c2, const long double _w);
         ~Pso();
 };
 

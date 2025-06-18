@@ -7,9 +7,9 @@ void Solve::solve(){
     const int ngen = 100;
     const int ndimensions = 2;
 
-    const double c1 = 1.5;
-    const double c2 = 1.5;
-    const double w = 0.9;
+    const long double c1 = 1.5;
+    const long double c2 = 1.5;
+    const long double w = 0.9;
 
     Pso *pso = new Pso(npop, ngen, ndimensions, c1, c2, w);
 
@@ -27,9 +27,9 @@ void Solve::factorialTest(ofstream &output_file){
     const int ngen = 200; 
     array<int, 3> ndimensions = {2, 3, 4};
 
-    array<double, 4> c1 = {1.0, 1.4, 1.8, 2.0};
-    array<double, 4> c2 = {1.0, 1.4, 1.8, 2.0};
-    array<double, 3> w = {0.5, 0.7, 0.9};
+    array<long double, 5> c1 = {1.0, 1.5, 2.0, 2.5, 3.5};
+    array<long double, 5> c2 = {1.0, 1.5, 2.0, 2.5, 3.5};
+    array<long double, 3> w = {0.4, 0.7, 0.9};
 
     BuildCSV *csv_builder = new BuildCSV();
     csv_builder->printFacIdfCSV(output_file);
@@ -55,9 +55,9 @@ void Solve::generationsTest(ofstream &output_file){
     const int ngen = 100;
     const int ndimensions = 2;
 
-    const double c1 = 0.5;
-    const double c2 = 3.5;
-    const double w = 0.7;
+    const long double c1 = 0.5;
+    const long double c2 = 3.5;
+    const long double w = 0.7;
 
     solveGenerationsTest(npop, ngen, ndimensions, c1, c2, w, output_file);
 
@@ -65,8 +65,8 @@ void Solve::generationsTest(ofstream &output_file){
 }
 
 void Solve::solveFactorialTest(const int npop, const int ngen, 
-                               const int ndimensions, const double c1, 
-                               const double c2, const double w, 
+                               const int ndimensions, const long double c1, 
+                               const long double c2, const long double w, 
                                ofstream &output_file){
     Pso *pso = new Pso(npop, ngen, ndimensions, c1, c2, w);
 
@@ -84,8 +84,8 @@ void Solve::solveFactorialTest(const int npop, const int ngen,
 }
 
 void Solve::solveGenerationsTest(const int npop, const int ngen, 
-                                 const int ndimensions, const double c1, 
-                                 const double c2, const double w, 
+                                 const int ndimensions, const long double c1, 
+                                 const long double c2, const long double w, 
                                  ofstream &output_file){
     Pso *pso = new Pso(npop, ngen, ndimensions, c1, c2, w);
 
@@ -102,7 +102,7 @@ void Solve::solveGenerationsTest(const int npop, const int ngen,
         pso->updateParticles();
 
         for(int p = 0; p < pso->getNpop() - 1; ++p){
-            output_file << pso->particles[p]->getFitness() << ',';
+            output_file << pso->particles[p]->getBestFitness() << ',';
         }
         output_file << pso->particles[pso->getNpop() - 1]->getFitness() << '\n';
     }
