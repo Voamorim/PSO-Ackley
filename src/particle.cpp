@@ -32,6 +32,22 @@ const long double Particle::getBestFitness(void) const{
     return best_fitness;
 }
 
+const vector<long double>& Particle::getPersonalGbestPos(void) const{
+    return G_best_pos;
+}
+
+const long double Particle::getPersonalGbestFitness(void) const{
+    return G_best_fitness;
+}
+
+void Particle::setPersonalGbestPos(const vector<long double> &new_personal_g_best_pos){
+    G_best_pos = new_personal_g_best_pos;
+}
+
+void Particle::setPersonalGbestFitness(const long double new_personal_g_best_fit){
+    G_best_fitness = new_personal_g_best_fit;
+}
+
 void Particle::updateFitness(const long double new_fitness){
     fitness = new_fitness;
 
@@ -42,8 +58,9 @@ void Particle::updateFitness(const long double new_fitness){
 }
 
 Particle::Particle(const int _ndimensions) : 
-    pos(_ndimensions), best_pos(_ndimensions), velocity(_ndimensions), 
-    fitness(FLT_MAX), best_fitness(FLT_MAX) {} 
+    pos(_ndimensions), best_pos(_ndimensions), velocity(_ndimensions, 0), 
+    G_best_pos(_ndimensions), fitness(FLT_MAX), best_fitness(FLT_MAX), 
+    G_best_fitness(FLT_MAX) {} 
 
 Particle::Particle(void) : fitness(FLT_MAX), best_fitness(FLT_MAX) {}
 

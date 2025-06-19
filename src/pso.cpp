@@ -10,14 +10,13 @@ void Pso::createInitialPopulation(void){
         Particle *particle = new Particle(ndimensions);
 
         vector<long double> pos(ndimensions);
-        vector<long double> velocity(ndimensions);
+        vector<long double> velocity(ndimensions, 0.0);
 
         uniform_real_distribution<long double> pos_gen(MIN_X, MAX_X);
         uniform_real_distribution<long double> vel_gen(MIN_VELOCITY, MAX_VELOCITY);
 
         for(int dimension = 0; dimension < ndimensions; ++dimension){
             pos[dimension] = pos_gen(globalGenerator);
-            velocity[dimension] = vel_gen(globalGenerator);
         }
         particle->setPos(pos);
         particle->setBestPos(pos);
@@ -36,33 +35,43 @@ void Pso::createInitialPopulation(void){
     }
 }
 
-void Pso::updateFitness(const int particle_idx){
+void Pso::updateFitness(const int particle_idx, const int topology_id){
     long double fitness = ackley(particles[particle_idx]->getPos(), ndimensions);
     particles[particle_idx]->updateFitness(fitness);
-
-    if(fitness <= G_best->getFitness()){
+    
+    if (fitness < G_best->getFitness()) {
         found_min = current_generation;
-        cout << "particle" << endl;
-        for(auto d : particles[particle_idx]->getPos()) {
-            dbg(d);
-        }
-        dbg(particles[particle_idx]->getFitness());
         G_best->setPos(particles[particle_idx]->getPos());
         G_best->setBestPos(particles[particle_idx]->getPos());
-        cout << "GBEST: " << endl;
-        for(auto d : G_best->getPos()) {
-            dbg(d);
-        }
         G_best->updateFitness(fitness);
-        dbg(G_best->getFitness());
+    }
+
+    if(topology_id == 2){
+        int num_columns = sqrt(npop);
+
+        array<int, 5> neighbour_idx = {particle_idx - 1, particle_idx,
+                                       particle_idx + 1, particle_idx - num_columns,
+                                       particle_idx + num_columns};
+
+        for (auto &idx : neighbour_idx){
+            if (idx < 0 or idx >= npop) continue;
+
+            if (fitness < particles[idx]->getPersonalGbestFitness()) {
+                particles[idx]->setPersonalGbestFitness(fitness);
+                particles[idx]->setPersonalGbestPos(particles[particle_idx]->getPos());
+            }
+        }
     }
 }
 
-void Pso::updateParticles(void){
+void Pso::updateParticles(const int topology_id){
     for(int p = 0; p < npop; ++p){
         const vector<long double> &particle_best_pos = particles[p]->getBestPos();
         const vector<long double> &particle_pos = particles[p]->getPos();
         const vector<long double> &particle_velocity = particles[p]->getVelocity();
+        const vector<long double> &g_best_pos = topology_id == 1 ? 
+                                  G_best->getBestPos() : particles[p]->getPersonalGbestPos();
+        
 
         vector<long double> new_velocity(ndimensions);
         for(int d = 0; d < ndimensions; ++d) {
@@ -71,9 +80,9 @@ void Pso::updateParticles(void){
             long double r2 = r_gen(globalGenerator);
 
             long double cognitive_component = c1 * r1 * (particle_best_pos[d] - 
-                                                   particle_pos[d]);
-            long double social_component = c2 * r2 * (G_best->getBestPos()[d] - 
-                                                particle_pos[d]);
+                                                         particle_pos[d]);
+            long double social_component = c2 * r2 * (g_best_pos[d] - 
+                                                      particle_pos[d]);
 
             new_velocity[d] = w * particle_velocity[d] + cognitive_component +
                               social_component;
@@ -86,7 +95,7 @@ void Pso::updateParticles(void){
         vector<long double> new_pos = particle_pos;
         for(int d = 0; d < ndimensions; ++d){
             new_pos[d] += new_velocity[d];
-           
+          
             // Mantém a posição dentro dos limites de busca
             new_pos[d] = min(new_pos[d], MAX_X);
             new_pos[d] = max(new_pos[d], MIN_X);
@@ -94,7 +103,7 @@ void Pso::updateParticles(void){
        
         particles[p]->setPos(new_pos);
 
-        updateFitness(p);
+        updateFitness(p, topology_id);
     }
 }
 
@@ -169,10 +178,13 @@ void Pso::printBestPos(void) const{
 
 Pso::Pso(const int _npop, const int _ngen, const int _ndimensions, 
          const long double _c1, const long double _c2, const long double _w) : 
-    npop(_npop), ngen(_ngen), ndimensions(_ndimensions), c1(_c1), c2(_c2), 
+    ngen(_ngen), ndimensions(_ndimensions), c1(_c1), c2(_c2), 
     w(_w), found_min(0), current_generation(0){
-        G_best = new Particle(ndimensions);
+        int aux_npop = ceil(sqrt(_npop));
+        npop = aux_npop * aux_npop;
         
+        G_best = new Particle(ndimensions);
+
         vector<long double> pos;
         for(int i = 0; i < ndimensions; ++i) 
             pos.push_back(MAX_X);

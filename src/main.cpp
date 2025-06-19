@@ -11,12 +11,13 @@ int main(int argc, char **argv){ _
     Io io;
 
     int solution_id = io.getSolutionId(argc, argv);
-
+    int topology_id = io.getTopologyId(argc, argv);
+    
     Solve solve;
 
     switch(solution_id){
         case 1:{
-            solve.solve();
+            solve.solve(topology_id);
             break;
         }
         case 2:{
@@ -28,7 +29,7 @@ int main(int argc, char **argv){ _
                 return 1;
             }
 
-            solve.generationsTest(gen_output_file);
+            solve.generationsTest(topology_id, gen_output_file);
             break;
         }
         case 3:{
@@ -39,7 +40,7 @@ int main(int argc, char **argv){ _
                 return 1;
             }
 
-            solve.factorialTest(fac_output_file);
+            solve.factorialTest(topology_id, fac_output_file);
             break;
         }
     };

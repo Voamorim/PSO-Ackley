@@ -22,8 +22,8 @@ class Pso{
         const long double MAX_X = 2.0;
         const long double MIN_X = -MAX_X;
 
-        const long double MAX_VELOCITY = MAX_X;
-        const long double MIN_VELOCITY = MIN_X;
+        const long double MAX_VELOCITY = 0.05;
+        const long double MIN_VELOCITY = -MAX_VELOCITY;
 
         // Função objetivo
         long double ackley(const vector<long double> &x, const int n);
@@ -35,8 +35,8 @@ class Pso{
         int current_generation;
 
         void createInitialPopulation(void);
-        void updateFitness(const int particle_idx);
-        void updateParticles(void);
+        void updateFitness(const int particle_idx, const int topology_id);
+        void updateParticles(const int topology_id);
 
         int getNgen(void) const;
         int getNpop(void) const;

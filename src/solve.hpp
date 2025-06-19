@@ -13,15 +13,15 @@ class Solve{
         void solveFactorialTest(const int npop, const int ngen, 
                                 const int ndimensions, const long double c1,
                                 const long double c2, const long double w,
-                                ofstream &output_file);
+                                const int topology_id, ofstream &output_file);
         void solveGenerationsTest(const int npop, const int ngen, 
                                   const int ndimensions, const long double c1,
                                   const long double c2, const long double w,
-                                  ofstream &output_file);
+                                  const int topology_id, ofstream &output_file);
     public:
-        void solve();
-        void factorialTest(ofstream &output_file);
-        void generationsTest(ofstream &output_file);
+        void solve(const int topology_id);
+        void factorialTest(const int topology_id, ofstream &output_file);
+        void generationsTest(const int topology_id, ofstream &output_file);
 };
 
 #endif

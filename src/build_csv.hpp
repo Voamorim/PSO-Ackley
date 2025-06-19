@@ -13,6 +13,9 @@ class BuildCSV{
         void printFacIdfCSV(ofstream &fac_file);
 
         void printFacResultsCSV(const Pso *pso, ofstream &fac_file);
+
+        void printParticlesDimensionsCSV(const Pso *pso, ofstream &pos_file);
+        void printParticlesPosCSV(const Pso *pso, const int geracao, ofstream &pos_file);
 };
 
 #endif
