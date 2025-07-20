@@ -41,8 +41,8 @@ A saída do programa depende da solução escolhida:
 ## Exemplo de Saída do Programa
 ```
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    Algoritmo de Otimizacao por Enxame de Particulas     
-            para otimizar a funcao de Ackley             
+    Algoritmo de Otimizacao por Enxame de Particulas
+            para otimizar a funcao de Ackley
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 - Melhor resultado encontrado: -0.0000000000000001
 - Posicao: (0.0000000000000000, -0.0000000000000000)
